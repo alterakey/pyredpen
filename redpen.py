@@ -1,4 +1,4 @@
-import requests
+import urllib2
 import json
 import argparse
 import sys
@@ -16,7 +16,8 @@ class RedPen:
         self.url = url
 
     def validate(self):
-        return requests.post(self.url, json=self.conf).json()
+        req = urllib2.Request(self.url, data=json.dumps(self.conf), headers={'Content-Type':'application/json'})
+        return json.loads(urllib2.urlopen(req).read())
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
