@@ -8,6 +8,7 @@ class RedPen:
         self.format = "json2"
         self.parser = "PLAIN"
         self.validators = []
+        self.url= "http://redpen.herokuapp.com/rest/document/validate/json"
 
     def generate(self):
         return {
@@ -43,6 +44,9 @@ class RedPen:
                 "WordNumber": {}
             }
         }
+
+    def validate(self):
+        return requests.post('http://redpen.herokuapp.com/rest/document/validate/json', json=self.generate())
 
 class Builder:
     def __init__(self):
@@ -87,5 +91,5 @@ if __name__ == '__main__':
     }
 
     redpen = RedPen()
-    r = requests.post('http://redpen.herokuapp.com/rest/document/validate/json', json=redpen.generate())
+    r = redpen.validate()
     print json.dumps(r.json(), indent=4)
