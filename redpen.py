@@ -1,5 +1,6 @@
 import requests
 import json
+import argparse
 
 class RedPen:
     def __init__(self):
@@ -12,7 +13,7 @@ class RedPen:
 
     def generate(self):
         return {
-            "document": "Some software tools work in more than one machine, and such distributed (cluster)systems can handle huge data or tasks, because such software tools make use of large amount of computer resources.\nIn this article, we'll call a computer server that works as a member of a cluster an \"instance\". for example, each instance in distributed search engines stores the the fractions of data.\nSuch distriubuted systems need a component to merge the preliminary results from member instnaces.",
+            "document": self.doc,
             "lang": self.lang,
             "format": self.format,
             "documentParser": self.parser,
@@ -54,42 +55,20 @@ class Builder:
         
     def add_doc(self, doc):
         self.redpen.doc = doc
+        return self
+
+    def set_url(self, url):
+        self.url = url
+        return self
+
+    def build(self):
+        return self.redpen
+    
     
 if __name__ == '__main__':
-    query = {
-        "document": "Some software tools work in more than one machine, and such distributed (cluster)systems can handle huge data or tasks, because such software tools make use of large amount of computer resources.\nIn this article, we'll call a computer server that works as a member of a cluster an \"instance\". for example, each instance in distributed search engines stores the the fractions of data.\nSuch distriubuted systems need a component to merge the preliminary results from member instnaces.",
-        "lang": "en",
-        "format": "json2",
-        "documentParser": "PLAIN",
-        "config": {
-            "CommaNumber": {},
-            "Contraction": {},
-            "DoubledWord": {},
-            "EndOfSentence": {},
-            "InvalidExpression": {},
-            "InvalidSymbol": {},
-            "InvalidWord": {},
-            "ParagraphNumber": {},
-            "Quotation": {},
-            "SectionLength": {
-                "properties": {
-                    "max_char_num": "2000"
-                }
-            },
-            "SentenceLength": {
-                "properties": {
-                    "max_len": "200"
-                }
-            },
-            "SpaceBetweenAlphabeticalWord": {},
-            "Spelling": {},
-            "StartWithCapitalLetter": {},
-            "SuccessiveWord": {},
-            "SymbolWithSpace": {},
-            "WordNumber": {}
-        }
-    }
-
-    redpen = RedPen()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--doc', action="store", default="sampledoc-en.txt", dest="doc_file")
+    parse_results = parser.parse_args()
+    redpen = Builder().add_doc(open(parse_results.doc_file).read()).build()
     r = redpen.validate()
     print json.dumps(r.json(), indent=4)
