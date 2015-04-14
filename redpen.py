@@ -3,12 +3,17 @@ import json
 import argparse
 import sys
 
+DEFAULT_URL = "http://redpen.herokuapp.com/rest/document/validate/json"
+
 class RedPen:
     def __init__(self, input_file, conf_file):
         self.doc = open(input_file).read()        
-        self.url= "http://redpen.herokuapp.com/rest/document/validate/json"
-        self.conf  = json.loads(open(conf_file).read())
+        self.conf = json.loads(open(conf_file).read())
         self.conf["document"] = self.doc
+        self.url = DEFAULT_URL
+
+    def set_url(url):
+        self.url = url
 
     def validate(self):
         return requests.post(self.url, json=self.conf).json()
@@ -31,4 +36,3 @@ if __name__ == '__main__':
         print "Succeeded validation"
         sys.exit(0)
 
-    # print json.dumps(result, indent=4)
