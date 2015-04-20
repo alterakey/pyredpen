@@ -19,6 +19,29 @@ class RedPen:
         req = urllib2.Request(self.url, data=json.dumps(self.conf), headers={'Content-Type':'application/json'})
         return json.loads(urllib2.urlopen(req).read())
 
+class FlymakeShaper:
+    def __init__(self, fn, result):
+        self.fn = fn
+        self.result = result
+
+    def code(self):
+        return 1 if 'errors' in self.result else 0
+    
+    def shape(self):
+        try:
+            for e in self.disassembled(self.result['errors']):
+                yield '%s:%d:%d:%s [%s]' % (self.fn,e['position']['start']['line'],e['position']['start']['offset'],e['message'],e['validator'])
+        except KeyError:
+            pass
+            
+    def disassembled(self, v):
+        for e in v:
+            try:
+                for i in self.disassembled(v=e['errors']):
+                    yield i
+            except KeyError:
+                yield e            
+                
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--doc', action="store", default="sampledoc-en.txt", dest="doc_file")
@@ -27,7 +50,11 @@ if __name__ == '__main__':
     parse_results = parser.parse_args()
 
     redpen = RedPen(parse_results.doc_file, parse_results.conf_file)
-    result = redpen.validate()
+    shaper = FlymakeShaper(parse_results.doc_file, redpen.validate())
+    for e in shaper.shape():
+        print e
+
+    sys.exit(shaper.code())
 
     if parse_results.limit < len(result["errors"]):
         print "Found errors more than specified limit..."
