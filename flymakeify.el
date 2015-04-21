@@ -1,3 +1,4 @@
+;; .emacs sample
 (require 'flymake)
 
 (defun redpen-flymake-init ()
