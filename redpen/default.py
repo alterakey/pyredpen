@@ -20,7 +20,13 @@ class Config:
     def update(self, d):
         self.config.update(d)
 
-    def select_lang(self, lang):
+    def parser(self, parser):
+        self.config['documentParser'] = parser
+
+    def is_language_set(self):
+        return 'lang' in self.config
+
+    def language(self, lang):
         if lang == 'en':
             self.config.update({
                 "lang": "en",

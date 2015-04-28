@@ -20,7 +20,8 @@ class RedPen:
         with open(input_file, "rb") as f:
             doc = f.read().decode('utf-8')
             self.conf["document"] = doc
-            self.conf.select_lang(Guesser(doc).guess())
+            if not self.conf.is_language_set():
+                self.conf.language(Guesser(doc).guess())
 
     def set_url(url):
         self.url = url

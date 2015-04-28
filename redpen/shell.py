@@ -8,11 +8,21 @@ import redpen.flymake
 def validate():
     conf = redpen.default.Config()
     limit = None
-    opts, args = getopt.getopt(sys.argv[1:], 'c:l:', ['conf', 'limit'])
+    opts, args = getopt.getopt(sys.argv[1:], 'c:mpwejl:', ['conf', 'markdown', 'plain', 'wiki', 'english', 'japanese', 'limit'])
     for o,a in opts:
         if o in ('-c', '--conf'):
             with open(a, 'r') as f:
                 conf.update(json.load(f))
+        if o in ('-m', '--markdown'):
+            conf.parser('MARKDOWN')
+        if o in ('-p', '--plain'):
+            conf.parser('PLAIN')
+        if o in ('-w', '--wiki'):
+            conf.parser('WIKI')
+        if o in ('-e', '--english'):
+            conf.language('en')
+        if o in ('-j', '--japanese'):
+            conf.language('ja')
         if o in ('-l', '--limit'):
             limit = int(a)
 
