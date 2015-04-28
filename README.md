@@ -8,15 +8,19 @@ This is a Python client for the RedPen, a text validator.
 0. HOW TO USE
 =============
 
-    $ pip install pyredpen
-    $ redpen-validate examples/sampledoc-en.txt
+    $ /path/to/python3/bin/pyvenv ~/ve/rp
+    $ source ~/ve/rp
+    (rp) $ python ./setup.py develop # assuming you are standing on the working copy you've just cloned
+    (rp) $ pip install pyredpen      # ... otherwise install from PyPI
+    ...
+    (rp) $ redpen-validate examples/sampledoc-en.txt
     Found errors (4)
-    $ redpen-flymake examples/sampledoc-en.txt
+    (rp) $ redpen-flymake examples/sampledoc-en.txt
     examples/sampledoc-en.txt:1:0: warning: The number of words (32) exceeds the maximum of 30. [WordNumber]
     examples/sampledoc-en.txt:1:128: warning: Found repeated word "such". [DoubledWord]
     examples/sampledoc-en.txt:1:133: warning: Found repeated word "software". [DoubledWord]
     ...
-    $ redpen-flymake examples/sampledoc-ja.txt
+    (rp) $ redpen-flymake examples/sampledoc-ja.txt
     examples/sampledoc-ja.txt:1:0: warning: The length of the sentence (101) exceeds the maximum of 100. [SentenceLength]
     examples/sampledoc-ja.txt:1:83: warning: Found invalid symbol "，". [InvalidSymbol]
     examples/sampledoc-ja.txt:1:49: warning: Found repeated word "分散". [DoubledWord]
