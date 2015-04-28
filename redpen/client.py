@@ -17,8 +17,8 @@ class Guesser:
 class RedPen:
     def __init__(self, config, input_file):
         self.conf = config
-        with open(input_file, "r") as f:
-            doc = f.read()
+        with open(input_file, "rb") as f:
+            doc = f.read().decode('utf-8')
             self.conf["document"] = doc
             self.conf.select_lang(Guesser(doc).guess())
 

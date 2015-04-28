@@ -37,5 +37,5 @@ def flymake():
     results, fn, limit = validate()
     shaper = redpen.flymake.FlymakeShaper(fn, results)
     for e in shaper.shape():
-        print(e)
+        sys.stdout.buffer.write((e + "\n").encode('utf-8'))
     sys.exit(shaper.code())
