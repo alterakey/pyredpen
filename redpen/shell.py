@@ -29,18 +29,18 @@ def validate():
     return redpen.client.RedPen(conf, args[0]).validate(), args[0], limit
 
 def commandline():
-    result, fn, limit = validate()
-    if not result['errors']:
+    results, fn, limit = validate()
+    if not results['errors']:
         print("Succeeded validation")
         sys.exit(0)
     else:
-        errors_found = len(result['errors'])
+        errors_found = len(results['errors'])
         if limit is None or limit >= errors_found:
             print("Found errors (%d)" % errors_found)
             sys.exit(1)
         else:
             print("Found errors more than specified limit... (%d > %d)" % (errors_found, limit))
-            print(len(result["errors"]))
+            print(len(results["errors"]))
             sys.exit(1)
 
 def flymake():
