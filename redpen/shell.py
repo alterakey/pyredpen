@@ -3,6 +3,7 @@ import sys
 
 import redpen.client
 import redpen.default
+import redpen.flymake
 
 def validate():
     conf = redpen.default.Config()
@@ -15,8 +16,10 @@ def validate():
         if o in ('-l', '--limit'):
             limit = int(a)
 
-    result = redpen.client.RedPen(conf, args[0]).validate()
+    return redpen.client.RedPen(conf, args[0]).validate(), args[0], limit
 
+def commandline():
+    result, fn, limit = validate()
     if not result['errors']:
         print("Succeeded validation")
         sys.exit(0)
@@ -29,3 +32,10 @@ def validate():
             print("Found errors more than specified limit... (%d > %d)" % (errors_found, limit))
             print(len(result["errors"]))
             sys.exit(1)
+
+def flymake():
+    results, fn, limit = validate()
+    shaper = redpen.flymake.FlymakeShaper(fn, results)
+    for e in shaper.shape():
+        print(e)
+    sys.exit(shaper.code())

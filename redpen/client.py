@@ -3,11 +3,24 @@ import json
 
 http = urllib3.PoolManager()
 
+class Guesser:
+    def __init__(self, doc):
+        self.doc = doc
+
+    def guess(self):
+        try:
+            self.doc.encode('ascii')
+            return "en"
+        except UnicodeEncodeError:
+            return "ja"
+
 class RedPen:
     def __init__(self, config, input_file):
         self.conf = config
         with open(input_file, "r") as f:
-            self.conf["document"] = f.read()
+            doc = f.read()
+            self.conf["document"] = doc
+            self.conf["lang"] = Guesser(doc).guess()
 
     def set_url(url):
         self.url = url

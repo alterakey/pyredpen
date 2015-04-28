@@ -25,5 +25,5 @@ setup(name='pyredpen',
       include_package_data=True,
       zip_safe=False,
       install_requires = requires,
-      entry_points = {'console_scripts':['validate = redpen.shell:validate']}
+      entry_points = {'console_scripts':['redpen-validate = redpen.shell:commandline', 'redpen-flymake = redpen.shell:flymake']}
       )
