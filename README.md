@@ -35,3 +35,8 @@ This is a Python client for the RedPen.
  * Requires Python 3.
  * Blindly assuming input and output in UTF-8.
  * Insanely hackish.
+
+3. LICENSE
+==========
+
+The MIT license.  Please refer to the LICENSE.txt.
