@@ -11,11 +11,10 @@ requires = ['urllib3']
 
 setup(name='pyredpen',
       version='0.0.1',
-      description='RedPen client',
+      description='Client for RedPen, a text validator',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
         "Programming Language :: Python",
-        "Programming Language :: Java",
         ],
       author='Takahiro Yoshimura',
       author_email='altakey@gmail.com',

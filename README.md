@@ -1,8 +1,8 @@
-# PyRedPen: Sentence Checker Client #
+# PyRedPen: Client for Text Validator #
 
 Copyright (C) 2015 Takahiro Yoshimura <altakey@gmail.com>
 
-This is a Python client for the RedPen.
+This is a Python client for the RedPen, a text validator.
 
 
 0. HOW TO USE
