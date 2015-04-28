@@ -11,7 +11,7 @@ class Guesser:
         try:
             self.doc.encode('ascii')
             return "en"
-        except UnicodeEncodeError:
+        except (UnicodeEncodeError, UnicodeDecodeError):
             return "ja"
 
 class RedPen:
@@ -20,7 +20,7 @@ class RedPen:
         with open(input_file, "r") as f:
             doc = f.read()
             self.conf["document"] = doc
-            self.conf["lang"] = Guesser(doc).guess()
+            self.conf.select_lang(Guesser(doc).guess())
 
     def set_url(url):
         self.url = url
