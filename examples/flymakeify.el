@@ -1,6 +1,7 @@
 ;; flymakeify.el: Flymake configuration example
 (setq pyredpen-bindir "/path/to/pyredpen/bin/")
 
+(require 'flymake)
 (defun redpen-flymake-init-plain ()
   (flymake-simple-make-init-impl
    'flymake-create-temp-with-folder-structure nil nil
