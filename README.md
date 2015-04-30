@@ -2,7 +2,7 @@
 
 Copyright (C) 2015 Takahiro Yoshimura <altakey@gmail.com>
 
-This is a Python client for the RedPen, a text validator.
+This is a Python client for the [RedPen](http://redpen.cc/), a text validator.
 
 
 0. HOW TO USE
