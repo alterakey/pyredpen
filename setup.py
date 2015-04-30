@@ -4,15 +4,14 @@ import sys
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.md')).read()
-CHANGES = open(os.path.join(here, 'CHANGES.md')).read()
+README = open(os.path.join(here, 'README.rst')).read()
 
 requires = ['urllib3']
 
 setup(name='pyredpen',
       version='0.0.1',
       description='Client for RedPen, a text validator',
-      long_description=README + '\n\n' + CHANGES,
+      long_description=README,
       classifiers=[
         "Programming Language :: Python",
         ],
