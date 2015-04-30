@@ -23,8 +23,9 @@ class RedPen:
             if not self.conf.is_language_set():
                 self.conf.language(Guesser(doc).guess())
 
-    def set_url(url):
+    def url(self, url):
         self.url = url
+        return self
 
     def validate(self):
         r = http.request('POST', self.conf.url, body=json.dumps(self.conf.config), headers={'Content-Type':'application/json'})

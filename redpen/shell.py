@@ -7,12 +7,15 @@ import redpen.flymake
 
 def validate():
     conf = redpen.default.Config()
+    url = None
     limit = None
-    opts, args = getopt.getopt(sys.argv[1:], 'c:mpwejl:', ['conf', 'markdown', 'plain', 'wiki', 'english', 'japanese', 'limit'])
+    opts, args = getopt.getopt(sys.argv[1:], 'c:smpwejl:', ['conf', 'server', 'markdown', 'plain', 'wiki', 'english', 'japanese', 'limit'])
     for o,a in opts:
         if o in ('-c', '--conf'):
             with open(a, 'r') as f:
                 conf.update(json.load(f))
+        if o in ('-s', '--server'):
+            url = a
         if o in ('-m', '--markdown'):
             conf.parser('MARKDOWN')
         if o in ('-p', '--plain'):
@@ -26,7 +29,10 @@ def validate():
         if o in ('-l', '--limit'):
             limit = int(a)
 
-    return redpen.client.RedPen(conf, args[0]).validate(), args[0], limit
+    rp = redpen.client.RedPen(conf, args[0])
+    if url is not None:
+        rp.set_url(url)
+    return rp.validate(), args[0], limit
 
 def commandline():
     results, fn, limit = validate()
