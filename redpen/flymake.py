@@ -12,7 +12,7 @@ class FlymakeShaper:
     def shape(self):
         try:
             for e in self.disassembled(self.result['errors']):
-                yield '%s:%d:%d: warning: %s [%s]' % (self.fn,e['position']['start']['line'],e['position']['start']['offset'],e['message'],e['validator'])
+                yield '%s:%d:%d: warning: %s [%s]' % (self.fn,e['position']['start']['line'],1+e['position']['start']['offset'],e['message'],e['validator'])
         except KeyError:
             pass
 
