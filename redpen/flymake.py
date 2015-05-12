@@ -23,3 +23,15 @@ class FlymakeShaper:
                     yield i
             except KeyError:
                 yield e
+
+class SublimeLinterShaper(FlymakeShaper):
+    def __init__(self, fn, result):
+        super().__init__(fn, result)
+        if self.fn is None:
+            self.fn = '<stdin>'
+
+    def code(self):
+        if not any(True for _ in self.disassembled(self.result['errors'])):
+            return 0
+        else:
+            return 1

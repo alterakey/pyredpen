@@ -15,13 +15,11 @@ class Guesser:
             return "ja"
 
 class RedPen:
-    def __init__(self, config, input_file):
+    def __init__(self, config, doc):
         self.conf = config
-        with open(input_file, "rb") as f:
-            doc = f.read().decode('utf-8')
-            self.conf["document"] = doc
-            if not self.conf.is_language_set():
-                self.conf.language(Guesser(doc).guess())
+        self.conf["document"] = doc
+        if not self.conf.is_language_set():
+            self.conf.language(Guesser(doc).guess())
 
     def url(self, url):
         self.url = url

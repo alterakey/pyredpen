@@ -29,10 +29,17 @@ def validate():
         if o in ('-l', '--limit'):
             limit = int(a)
 
-    rp = redpen.client.RedPen(conf, args[0])
+    try:
+        fn = args[0]
+        with open(fn, "rb") as f:
+            rp = redpen.client.RedPen(conf, f.read().decode("utf-8"))
+    except IndexError:
+        fn = None
+        rp = redpen.client.RedPen(conf, sys.stdin.buffer.read().decode("utf-8"))
+
     if url is not None:
         rp.set_url(url)
-    return rp.validate(), args[0], limit
+    return rp.validate(), fn, limit
 
 def commandline():
     results, fn, limit = validate()
@@ -54,4 +61,11 @@ def flymake():
     shaper = redpen.flymake.FlymakeShaper(fn, results)
     for e in shaper.shape():
         sys.stdout.buffer.write((e + "\n").encode('utf-8'))
+    sys.exit(shaper.code())
+
+def sublimelinter():
+    results, fn, limit = validate()
+    shaper = redpen.flymake.SublimeLinterShaper(fn, results)
+    for e in shaper.shape():
+        sys.stderr.buffer.write((e + "\n").encode('utf-8'))
     sys.exit(shaper.code())
