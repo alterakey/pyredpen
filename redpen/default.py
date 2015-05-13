@@ -1,4 +1,4 @@
-DEFAULT_URL = "http://redpen.herokuapp.com/rest/document/validate/json"
+DEFAULT_URL = "http://pyredpen-sandbox.herokuapp.com/rest/document/validate/json"
 
 class Config:
     def __init__(self):
