@@ -9,7 +9,7 @@ README = open(os.path.join(here, 'README.rst')).read()
 requires = ['urllib3']
 
 setup(name='pyredpen',
-      version='0.0.1',
+      version='0.0.2',
       description='Client for RedPen, a text validator',
       long_description=README,
       classifiers=[
