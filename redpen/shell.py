@@ -5,6 +5,12 @@ import redpen.client
 import redpen.default
 import redpen.flymake
 
+def _as_bytes(f):
+    try:
+        return f.buffer
+    except AttributeError:
+        return f
+
 def validate():
     conf = redpen.default.Config()
     url = None
@@ -35,7 +41,7 @@ def validate():
             rp = redpen.client.RedPen(conf, f.read().decode("utf-8"))
     except IndexError:
         fn = None
-        rp = redpen.client.RedPen(conf, sys.stdin.buffer.read().decode("utf-8"))
+        rp = redpen.client.RedPen(conf, _as_bytes(sys.stdin).read().decode('utf-8'))
 
     if url is not None:
         rp.set_url(url)
@@ -60,12 +66,12 @@ def flymake():
     results, fn, limit = validate()
     shaper = redpen.flymake.FlymakeShaper(fn, results)
     for e in shaper.shape():
-        sys.stdout.buffer.write((e + "\n").encode('utf-8'))
+        _as_bytes(sys.stdout).write((e + "\n").encode('utf-8'))
     sys.exit(shaper.code())
 
 def sublimelinter():
     results, fn, limit = validate()
     shaper = redpen.flymake.SublimeLinterShaper(fn, results)
     for e in shaper.shape():
-        sys.stderr.buffer.write((e + "\n").encode('utf-8'))
+        _as_bytes(sys.stdout).write((e + "\n").encode('utf-8'))
     sys.exit(shaper.code())
