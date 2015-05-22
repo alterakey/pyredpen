@@ -36,7 +36,6 @@ This is a Python client for the [RedPen](http://redpen.cc/), a text validator.
 2. BUGS
 =======
 
- * Requires Python 3.
  * Blindly assuming input and output in UTF-8.
  * Insanely hackish.
 
