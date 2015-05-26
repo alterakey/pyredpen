@@ -1,4 +1,4 @@
-DEFAULT_URL = "http://pyredpen-sandbox.herokuapp.com/rest/document/validate/json"
+DEFAULT_URL = "http://pyredpen-sandbox-2.herokuapp.com/rest/document/validate/json"
 
 class Config:
     def __init__(self):
@@ -31,19 +31,20 @@ class Config:
             self.config.update({
                 "lang": "en",
                 "config": {
-                    "CommaNumber": {},
-                    "Contraction": {},
-                    "DoubledWord": {},
-                    "EndOfSentence": {},
-                    "InvalidExpression": {},
-                    "InvalidSymbol": {},
-                    "InvalidWord": {},
-                    "ParagraphNumber": {},
-                    "Quotation": {},
-                    "SectionLength": {
-                        "properties": {
-                            "max_char_num": "2000"
-                        }
+                    "validators":{
+                        "CommaNumber": {},
+                        "Contraction": {},
+                        "DoubledWord": {},
+                        "EndOfSentence": {},
+                        "InvalidExpression": {},
+                        "InvalidSymbol": {},
+                        "InvalidWord": {},
+                        "ParagraphNumber": {},
+                        "Quotation": {},
+                        "SectionLength": {
+                            "properties": {
+                                "max_char_num": "2000"
+                            }
                     },
                     "SentenceLength": {
                         "properties": {
@@ -51,28 +52,30 @@ class Config:
                         }
                     },
                     "SpaceBetweenAlphabeticalWord": {},
-                    "Spelling": {},
-                    "StartWithCapitalLetter": {},
-                    "SuccessiveWord": {},
-                    "SymbolWithSpace": {},
-                    "WordNumber": {}
+                        "Spelling": {},
+                        "StartWithCapitalLetter": {},
+                        "SuccessiveWord": {},
+                        "SymbolWithSpace": {},
+                        "WordNumber": {}
+                    }
                 }
             })
         elif lang == 'ja':
             self.config.update({
                 "lang": "ja",
                 "config": {
-                    "CommaNumber": {},
-                    "DoubledWord": {},
-                    "HankakuKana": {},
-                    "InvalidSymbol": {},
-                    "KatakanaEndHyphen": {},
-                    "KatakanaSpellCheck": {},
-                    "ParagraphNumber": {},
-                    "SectionLength": {
-                        "properties": {
-                            "max_num": "1500"
-                        }
+                    "validators": {
+                        "CommaNumber": {},
+                        "DoubledWord": {},
+                        "HankakuKana": {},
+                        "InvalidSymbol": {},
+                        "KatakanaEndHyphen": {},
+                        "KatakanaSpellCheck": {},
+                        "ParagraphNumber": {},
+                        "SectionLength": {
+                            "properties": {
+                                "max_num": "1500"
+                            }
                     },
                     "SentenceLength": {
                         "properties": {
@@ -80,6 +83,7 @@ class Config:
                         }
                     },
                     "SpaceBetweenAlphabeticalWord": {},
-                    "SuccessiveWord": {}
+                        "SuccessiveWord": {}
+                    }
                 }
             })
