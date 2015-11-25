@@ -6,10 +6,10 @@ from setuptools import setup, find_packages
 here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.rst')).read()
 
-requires = ['urllib3']
+requires = ['urllib3', 'wheel']
 
 setup(name='pyredpen',
-      version='0.0.5',
+      version='0.0.6',
       description='Client for RedPen, a text validator',
       long_description=README,
       classifiers=[
