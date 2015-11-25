@@ -20,7 +20,7 @@ def validate():
     for o,a in opts:
         if o in ('-c', '--conf'):
             with open(a, 'rb') as f:
-                conf.update(json.loads(f.read().decode('UTF-8')))
+                conf.config['config'] = json.loads(f.read().decode('UTF-8'))
         if o in ('-s', '--server'):
             url = a
         if o in ('-m', '--markdown'):

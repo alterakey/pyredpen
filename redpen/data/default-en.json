@@ -1,0 +1,30 @@
+{
+    "lang": "en",
+    "validators":{
+        "CommaNumber": {},
+        "Contraction": {},
+        "DoubledWord": {},
+        "EndOfSentence": {},
+        "InvalidExpression": {},
+        "InvalidSymbol": {},
+        "InvalidWord": {},
+        "ParagraphNumber": {},
+        "Quotation": {},
+        "SectionLength": {
+            "properties": {
+                "max_char_num": "2000"
+            }
+        },
+        "SentenceLength": {
+            "properties": {
+                "max_len": "200"
+            }
+        },
+        "SpaceBetweenAlphabeticalWord": {},
+        "Spelling": {},
+        "StartWithCapitalLetter": {},
+        "SuccessiveWord": {},
+        "SymbolWithSpace": {},
+        "WordNumber": {}
+    }
+}

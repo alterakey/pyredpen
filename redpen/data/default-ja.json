@@ -1,0 +1,24 @@
+{
+    "lang": "ja",
+    "validators": {
+        "CommaNumber": {},
+        "DoubledWord": {},
+        "HankakuKana": {},
+        "InvalidSymbol": {},
+        "KatakanaEndHyphen": {},
+        "KatakanaSpellCheck": {},
+        "ParagraphNumber": {},
+        "SectionLength": {
+            "properties": {
+                "max_num": "1500"
+            }
+        },
+        "SentenceLength": {
+            "properties": {
+                "max_len": "100"
+            }
+        },
+        "SpaceBetweenAlphabeticalWord": {},
+        "SuccessiveWord": {}
+    }
+}

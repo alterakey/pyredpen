@@ -1,4 +1,10 @@
+import json
+import os
+
 DEFAULT_URL = "http://pyredpen-sandbox-2.herokuapp.com/rest/document/validate/json"
+
+def data_file_named(fn):
+    return os.path.join(os.path.dirname(__file__), 'data', fn)
 
 class Config:
     def __init__(self):
@@ -6,7 +12,11 @@ class Config:
         self.config = {
             "format": "json2",
             "documentParser": "PLAIN",
+            "config":None
         }
+
+    def as_json(self):
+        return json.dumps(self.config)
 
     def __getitem__(self, k):
         return self.config[k]
@@ -24,66 +34,13 @@ class Config:
         self.config['documentParser'] = parser
 
     def is_language_set(self):
-        return 'lang' in self.config['config']
+        try:
+            return 'lang' in self.config['config']
+        except TypeError:
+            return False
 
     def language(self, lang):
-        if lang == 'en':
-            self.config.update({
-                "config": {
-                    "lang": "en",
-                    "validators":{
-                        "CommaNumber": {},
-                        "Contraction": {},
-                        "DoubledWord": {},
-                        "EndOfSentence": {},
-                        "InvalidExpression": {},
-                        "InvalidSymbol": {},
-                        "InvalidWord": {},
-                        "ParagraphNumber": {},
-                        "Quotation": {},
-                        "SectionLength": {
-                            "properties": {
-                                "max_char_num": "2000"
-                            }
-                    },
-                    "SentenceLength": {
-                        "properties": {
-                            "max_len": "200"
-                        }
-                    },
-                    "SpaceBetweenAlphabeticalWord": {},
-                        "Spelling": {},
-                        "StartWithCapitalLetter": {},
-                        "SuccessiveWord": {},
-                        "SymbolWithSpace": {},
-                        "WordNumber": {}
-                    }
-                }
-            })
-        elif lang == 'ja':
-            self.config.update({
-                "config": {
-                    "lang": "ja",
-                    "validators": {
-                        "CommaNumber": {},
-                        "DoubledWord": {},
-                        "HankakuKana": {},
-                        "InvalidSymbol": {},
-                        "KatakanaEndHyphen": {},
-                        "KatakanaSpellCheck": {},
-                        "ParagraphNumber": {},
-                        "SectionLength": {
-                            "properties": {
-                                "max_num": "1500"
-                            }
-                    },
-                    "SentenceLength": {
-                        "properties": {
-                            "max_len": "100"
-                        }
-                    },
-                    "SpaceBetweenAlphabeticalWord": {},
-                        "SuccessiveWord": {}
-                    }
-                }
-            })
+        if self.config['config'] is None:
+            with open(data_file_named(dict(en='default-en.json', ja='default-ja.json')[lang]), 'rb') as f:
+                self.config['config'] = json.loads(f.read().decode('UTF-8'))
+        self.config['config']['lang'] = lang
