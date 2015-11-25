@@ -1,5 +1,6 @@
 import getopt
 import sys
+import json
 
 import redpen.client
 import redpen.default
@@ -15,11 +16,11 @@ def validate():
     conf = redpen.default.Config()
     url = None
     limit = None
-    opts, args = getopt.getopt(sys.argv[1:], 'c:smpwejl:', ['conf', 'server', 'markdown', 'plain', 'wiki', 'english', 'japanese', 'limit'])
+    opts, args = getopt.getopt(sys.argv[1:], 'c:s:mpwejl:', ['conf', 'server', 'markdown', 'plain', 'wiki', 'english', 'japanese', 'limit'])
     for o,a in opts:
         if o in ('-c', '--conf'):
-            with open(a, 'r') as f:
-                conf.update(json.load(f))
+            with open(a, 'rb') as f:
+                conf.update(json.loads(f.read().decode('UTF-8')))
         if o in ('-s', '--server'):
             url = a
         if o in ('-m', '--markdown'):
@@ -44,7 +45,7 @@ def validate():
         rp = redpen.client.RedPen(conf, _as_bytes(sys.stdin).read().decode('utf-8'))
 
     if url is not None:
-        rp.set_url(url)
+        rp.url(url)
     return rp.validate(), fn, limit
 
 def commandline():

@@ -24,13 +24,13 @@ class Config:
         self.config['documentParser'] = parser
 
     def is_language_set(self):
-        return 'lang' in self.config
+        return 'lang' in self.config['config']
 
     def language(self, lang):
         if lang == 'en':
             self.config.update({
-                "lang": "en",
                 "config": {
+                    "lang": "en",
                     "validators":{
                         "CommaNumber": {},
                         "Contraction": {},
@@ -62,8 +62,8 @@ class Config:
             })
         elif lang == 'ja':
             self.config.update({
-                "lang": "ja",
                 "config": {
+                    "lang": "ja",
                     "validators": {
                         "CommaNumber": {},
                         "DoubledWord": {},
